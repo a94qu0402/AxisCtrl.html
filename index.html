@@ -8,7 +8,7 @@
   <style>
     body {
       font-family: "Microsoft Sans Serif", sans-serif;
-      font-size: 13px;
+      font-size: 15px; /* 從13px增加到15px */
       padding: 20px;
     }
 
@@ -22,7 +22,7 @@
     .header {
       font-weight: bold;
       margin-bottom: 20px;
-      font-size: 1.25rem;
+      font-size: 1.25rem; /* 從1.25rem增加到1.45rem */
     }
 
     .xy-panels {
@@ -43,7 +43,7 @@
     .axis-panel h4 {
       margin-top: 0;
       font-weight: bold;
-      font-size: 1.1rem;
+      font-size: 1.3rem; /* 從1.1rem增加到1.3rem */
     }
 
     .field {
@@ -60,6 +60,10 @@
     input.form-control {
       display: inline-block;
       width: auto;
+      font-size: 15px; /* 增加字體大小 */
+      height: 30px; /* 減小高度 */
+      padding-top: 2px; /* 減小上下內邊距 */
+      padding-bottom: 2px;
     }
 
     input[type="text"].short {
@@ -108,7 +112,7 @@
       <!-- 參數設定區 -->
       <div class="d-flex">
         <!-- 左半邊 - 軸參數設定 -->
-        <div class="axis-panel" style="max-height: 500px; overflow-y: auto; flex: 1; margin-right: 10px;">
+        <div class="axis-panel" style="max-height: 400px; overflow-y: auto; flex: 1; margin-right: 10px;">
           <div class="field"><span>軸單位</span><select class="form-select" id="axisUnit"><option>公厘</option><option>度</option></select></div>
           <div class="field"><span>程式原點 [公厘]</span><input type="text" class="form-control" id="programOrigin" value="0" /></div>
           <div class="field"><span>編碼器程式原點 [公厘]</span><input type="text" class="form-control" id="encoderProgramOrigin" value="0" /></div>
@@ -189,14 +193,56 @@
                   <option>載入補償表(rxl)</option>
               </select>
             </div>
-          </div>
-
-          <!-- 編碼器補償表區塊 -->
-          <div class="groupbox">
             <div class="field"><span>編碼器補償表：</span>
               <select class="form-select" id="encoderCompensationTable">
                 <option>未使用</option>
                 <option>載入補償表(txt)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 速度範圍區塊 -->
+          <div class="groupbox">
+            <div class="field"><span>速度範圍：</span>
+              <input type="text" class="form-control short" id="minSpeed" value="1.0" /> ~ 
+              <input type="text" class="form-control short" id="maxSpeed" value="200.0" /> %
+            </div>
+          </div>
+          
+          <!-- 工作結束點區塊 -->
+          <div class="groupbox">
+            <div class="field"><span>工作結束點：</span>
+              <select class="form-select" id="workEndPoint">
+                <option>無</option>
+                <option>P0</option>
+                <option>P1</option>
+                <option>P2</option>
+                <option>P3</option>
+                <option>P4</option>
+                <option>P5</option>
+                <option>P6</option>
+                <option>P7</option>
+                <option>P8</option>
+                <option>P9</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- 原點回歸結束點區塊 -->
+          <div class="groupbox">
+            <div class="field"><span>原點回歸結束點：</span>
+              <select class="form-select" id="homeEndPoint">
+                <option>無</option>
+                <option>P0</option>
+                <option>P1</option>
+                <option>P2</option>
+                <option>P3</option>
+                <option>P4</option>
+                <option>P5</option>
+                <option>P6</option>
+                <option>P7</option>
+                <option>P8</option>
+                <option>P9</option>
               </select>
             </div>
           </div>
@@ -205,42 +251,7 @@
     </div>
 
     <!-- 速度範圍區塊 (維持在下方) -->
-    <div class="groupbox">
-      <div class="field"><span>速度範圍：</span>
-        <input type="text" class="form-control short" id="minSpeed" value="1.0" /> ~ 
-        <input type="text" class="form-control short" id="maxSpeed" value="200.0" /> %
-      </div>
-      <div class="field"><span>工作結束點：</span>
-        <select class="form-select" id="workEndPoint">
-          <option>無</option>
-          <option>P0</option>
-          <option>P1</option>
-          <option>P2</option>
-          <option>P3</option>
-          <option>P4</option>
-          <option>P5</option>
-          <option>P6</option>
-          <option>P7</option>
-          <option>P8</option>
-          <option>P9</option>
-        </select>
-      </div>
-      <div class="field"><span>原點回歸結束點：</span>
-        <select class="form-select" id="homeEndPoint">
-          <option>無</option>
-          <option>P0</option>
-          <option>P1</option>
-          <option>P2</option>
-          <option>P3</option>
-          <option>P4</option>
-          <option>P5</option>
-          <option>P6</option>
-          <option>P7</option>
-          <option>P8</option>
-          <option>P9</option>
-        </select>
-      </div>
-    </div>
+    
 
     <script>
       // 儲存各軸參數的對象
