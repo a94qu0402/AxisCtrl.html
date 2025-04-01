@@ -102,78 +102,143 @@
         <label class="me-3"><input type="checkbox" class="form-check-input" name="axis" value="Y"> Y 軸</label>
         <label class="me-3"><input type="checkbox" class="form-check-input" name="axis" value="Z"> Z 軸</label>
         <label class="me-3"><input type="checkbox" class="form-check-input" name="axis" value="R"> R 軸</label>
-        <button type="button" id="applyBtn" class="btn btn-secondary btn-sm ms-3" style="font-size: 0.8rem; padding: 0.2rem 0.5rem;">套用</button>
+       
       </div>
 
       <!-- 參數設定區 -->
-      <div class="axis-panel" style="max-height: 500px; overflow-y: auto;">
-        <div class="field"><span>軸單位</span><select class="form-select" id="axisUnit"><option>公厘</option><option>度</option></select></div>
-        <div class="field"><span>程式原點 [公厘]</span><input type="text" class="form-control" id="programOrigin" value="0" /></div>
-        <div class="field"><span>編碼器程式原點 [公厘]</span><input type="text" class="form-control" id="encoderProgramOrigin" value="0" /></div>
-        <div class="field"><span>軸單位 [脈衝/公厘]</span><input type="text" class="form-control" id="axisPulseUnit" value="5000" /></div>
-        <div class="field"><span>編碼器單位 [脈衝/公厘]</span><input type="text" class="form-control" id="encoderPulseUnit" value="5000" /></div>
-        <div class="field"><span>速度 [公厘/秒]</span><input type="text" class="form-control" id="speed" value="100" /></div>
-        <div class="field"><span>背隙 [公厘]</span><input type="text" class="form-control" id="backlash" value="0" /></div>
-        <div class="field"><span>馬達反向</span><input type="checkbox" class="form-check-input" id="motorReverse" /></div>
-        <div class="field"><span>吋動反向</span><input type="checkbox" class="form-check-input" id="jogReverse" /></div>
-        <div class="field"><span>編碼器反向</span><input type="checkbox" class="form-check-input" id="encoderReverse" /></div>
-        <div class="field"><span>極限點作動電位(0/1)</span><input type="text" class="form-control" id="limitLevel" value="0" /></div>
-        <div class="field"><span>歸原點作動電位(0/1)</span><input type="text" class="form-control" id="homeLevel" value="0" /></div>
-        <div class="field"><span>索引作動電位(0/1)</span><input type="text" class="form-control" id="indexLevel" value="0" /></div>
-        <div class="field"><span>定位點作動電位(0/1)</span><input type="text" class="form-control" id="positionLevel" value="0" /></div>
-        <div class="field"><span>加減速時間 [秒]</span><input type="text" class="form-control" id="accelTime" value="0.1" /></div>
-        <div class="field"><span>加速度模式</span><select class="form-select" id="accelMode"><option>梯形</option><option>S型</option></select></div>
-        <div class="field"><span>初始速度 [公厘/秒]</span><input type="text" class="form-control" id="initialSpeed" value="0" /></div>
-        <div class="field"><span>定位 Timeout [秒]</span><input type="text" class="form-control" id="posTimeout" value="0" /></div>
-        <div class="field"><span>定位延遲 [秒]</span><input type="text" class="form-control" id="posDelay" value="0" /></div>
-        <div class="field"><span>索引延遲 [秒]</span><input type="text" class="form-control" id="indexDelay" value="0" /></div>
-        <div class="field"><span>外部原點回歸</span><select class="form-select" id="externalHome">
-          <option>無</option>
-          <option>1</option><option>2</option><option>3</option><option>4</option>
-          <option>5</option><option>6</option><option>7</option><option>8</option>
-          <option>9</option><option>10</option><option>11</option><option>12</option>
-          <option>13</option><option>14</option><option>15</option><option>16</option>
-        </select></div>
-        <div class="field"><span>外部正向寸動</span><select class="form-select" id="externalPosJog">
-          <option>無</option>
-          <option>1</option><option>2</option><option>3</option><option>4</option>
-          <option>5</option><option>6</option><option>7</option><option>8</option>
-          <option>9</option><option>10</option><option>11</option><option>12</option>
-          <option>13</option><option>14</option><option>15</option><option>16</option>
-        </select></div>
-        <div class="field"><span>外部負向寸動</span><select class="form-select" id="externalNegJog">
-          <option>無</option>
-          <option>1</option><option>2</option><option>3</option><option>4</option>
-          <option>5</option><option>6</option><option>7</option><option>8</option>
-          <option>9</option><option>10</option><option>11</option><option>12</option>
-          <option>13</option><option>14</option><option>15</option><option>16</option>
-        </select></div>
-        <div class="field"><span>回原點速度 [公厘/秒]</span><input type="text" class="form-control" id="homeSpeed" value="50" /></div>
-        <div class="field"><span>離原點速度 [公厘/秒]</span><input type="text" class="form-control" id="leaveHomeSpeed" value="25" /></div>
-        <div class="field"><span>回原點反向</span><input type="checkbox" class="form-check-input" id="homeReverse" /></div>
-        <div class="field"><span>原點極限碰撞模式 (0/1)</span><input type="text" class="form-control" id="homeLimitMode" value="0" /></div>
-        <div class="field"><span>索引方向</span><select class="form-select" id="indexDirection">
-          <option>不使用</option><option>順向</option><option>逆向</option>
-        </select></div>
-        <div class="field"><span>極限停止模式 (0/1)</span><input type="text" class="form-control" id="limitStopMode" value="0" /></div>
-        <div class="field"><span>原點回歸偏位 [公厘]</span><input type="text" class="form-control" id="homeOffset" value="0" /></div>
-        <div class="field">
-          <span>使用軟體極限</span>
-          <input type="checkbox" class="form-check-input" id="useSoftLimit" onchange="document.getElementById('posLimit').disabled = !this.checked; document.getElementById('negLimit').disabled = !this.checked;" />
+      <div class="d-flex">
+        <!-- 左半邊 - 軸參數設定 -->
+        <div class="axis-panel" style="max-height: 500px; overflow-y: auto; flex: 1; margin-right: 10px;">
+          <div class="field"><span>軸單位</span><select class="form-select" id="axisUnit"><option>公厘</option><option>度</option></select></div>
+          <div class="field"><span>程式原點 [公厘]</span><input type="text" class="form-control" id="programOrigin" value="0" /></div>
+          <div class="field"><span>編碼器程式原點 [公厘]</span><input type="text" class="form-control" id="encoderProgramOrigin" value="0" /></div>
+          <div class="field"><span>軸單位 [脈衝/公厘]</span><input type="text" class="form-control" id="axisPulseUnit" value="5000" /></div>
+          <div class="field"><span>編碼器單位 [脈衝/公厘]</span><input type="text" class="form-control" id="encoderPulseUnit" value="5000" /></div>
+          <div class="field"><span>速度 [公厘/秒]</span><input type="text" class="form-control" id="speed" value="100" /></div>
+          <div class="field"><span>背隙 [公厘]</span><input type="text" class="form-control" id="backlash" value="0" /></div>
+          <div class="field"><span>馬達反向</span><input type="checkbox" class="form-check-input" id="motorReverse" /></div>
+          <div class="field"><span>吋動反向</span><input type="checkbox" class="form-check-input" id="jogReverse" /></div>
+          <div class="field"><span>編碼器反向</span><input type="checkbox" class="form-check-input" id="encoderReverse" /></div>
+          <div class="field"><span>極限點作動電位(0/1)</span><input type="text" class="form-control" id="limitLevel" value="0" /></div>
+          <div class="field"><span>歸原點作動電位(0/1)</span><input type="text" class="form-control" id="homeLevel" value="0" /></div>
+          <div class="field"><span>索引作動電位(0/1)</span><input type="text" class="form-control" id="indexLevel" value="0" /></div>
+          <div class="field"><span>定位點作動電位(0/1)</span><input type="text" class="form-control" id="positionLevel" value="0" /></div>
+          <div class="field"><span>加減速時間 [秒]</span><input type="text" class="form-control" id="accelTime" value="0.1" /></div>
+          <div class="field"><span>加速度模式</span><select class="form-select" id="accelMode"><option>梯形</option><option>S型</option></select></div>
+          <div class="field"><span>初始速度 [公厘/秒]</span><input type="text" class="form-control" id="initialSpeed" value="0" /></div>
+          <div class="field"><span>定位 Timeout [秒]</span><input type="text" class="form-control" id="posTimeout" value="0" /></div>
+          <div class="field"><span>定位延遲 [秒]</span><input type="text" class="form-control" id="posDelay" value="0" /></div>
+          <div class="field"><span>索引延遲 [秒]</span><input type="text" class="form-control" id="indexDelay" value="0" /></div>
+          <div class="field"><span>外部原點回歸</span><select class="form-select" id="externalHome">
+            <option>無</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+            <option>5</option><option>6</option><option>7</option><option>8</option>
+            <option>9</option><option>10</option><option>11</option><option>12</option>
+            <option>13</option><option>14</option><option>15</option><option>16</option>
+          </select></div>
+          <div class="field"><span>外部正向寸動</span><select class="form-select" id="externalPosJog">
+            <option>無</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+            <option>5</option><option>6</option><option>7</option><option>8</option>
+            <option>9</option><option>10</option><option>11</option><option>12</option>
+            <option>13</option><option>14</option><option>15</option><option>16</option>
+          </select></div>
+          <div class="field"><span>外部負向寸動</span><select class="form-select" id="externalNegJog">
+            <option>無</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+            <option>5</option><option>6</option><option>7</option><option>8</option>
+            <option>9</option><option>10</option><option>11</option><option>12</option>
+            <option>13</option><option>14</option><option>15</option><option>16</option>
+          </select></div>
+          <div class="field"><span>回原點速度 [公厘/秒]</span><input type="text" class="form-control" id="homeSpeed" value="50" /></div>
+          <div class="field"><span>離原點速度 [公厘/秒]</span><input type="text" class="form-control" id="leaveHomeSpeed" value="25" /></div>
+          <div class="field"><span>回原點反向</span><input type="checkbox" class="form-check-input" id="homeReverse" /></div>
+          <div class="field"><span>原點極限碰撞模式 (0/1)</span><input type="text" class="form-control" id="homeLimitMode" value="0" /></div>
+          <div class="field"><span>索引方向</span><select class="form-select" id="indexDirection">
+            <option>不使用</option><option>順向</option><option>逆向</option>
+          </select></div>
+          <div class="field"><span>極限停止模式 (0/1)</span><input type="text" class="form-control" id="limitStopMode" value="0" /></div>
+          <div class="field"><span>原點回歸偏位 [公厘]</span><input type="text" class="form-control" id="homeOffset" value="0" /></div>
+          <div class="field">
+            <span>使用軟體極限</span>
+            <input type="checkbox" class="form-check-input" id="useSoftLimit" onchange="document.getElementById('posLimit').disabled = !this.checked; document.getElementById('negLimit').disabled = !this.checked;" />
+          </div>
+          <div class="field"><span>正極限 [公厘]</span><input type="text" class="form-control" id="posLimit" disabled value="0" /></div>
+          <div class="field"><span>負極限 [公厘]</span><input type="text" class="form-control" id="negLimit" disabled value="0" /></div>
+          <div class="field"><span>行程 [公厘]</span><input type="text" class="form-control" id="travel" value="100" /></div>
+          <div class="field"><span>P0 座標 [公厘]</span><input type="text" class="form-control" id="p0" value="0" /></div>
+          <div class="field"><span>P1 座標 [公厘]</span><input type="text" class="form-control" id="p1" value="0" /></div>
+          <div class="field"><span>P2 座標 [公厘]</span><input type="text" class="form-control" id="p2" value="0" /></div>
+          <div class="field"><span>P3 座標 [公厘]</span><input type="text" class="form-control" id="p3" value="0" /></div>
+          <div class="field"><span>P4 座標 [公厘]</span><input type="text" class="form-control" id="p4" value="0" /></div>
+          <div class="field"><span>P5 座標 [公厘]</span><input type="text" class="form-control" id="p5" value="0" /></div>
+          <div class="field"><span>P6 座標 [公厘]</span><input type="text" class="form-control" id="p6" value="0" /></div>
+          <div class="field"><span>P7 座標 [公厘]</span><input type="text" class="form-control" id="p7" value="0" /></div>
+          <div class="field"><span>P8 座標 [公厘]</span><input type="text" class="form-control" id="p8" value="0" /></div>
+          <div class="field"><span>P9 座標 [公厘]</span><input type="text" class="form-control" id="p9" value="0" /></div>
         </div>
-        <div class="field"><span>正極限 [公厘]</span><input type="text" class="form-control" id="posLimit" disabled value="0" /></div>
-        <div class="field"><span>負極限 [公厘]</span><input type="text" class="form-control" id="negLimit" disabled value="0" /></div>
-        <div class="field"><span>行程 [公厘]</span><input type="text" class="form-control" id="travel" value="100" /></div>
-        <div class="field"><span>P0 座標 [公厘]</span><input type="text" class="form-control" id="p0" value="0" /></div>
-        <div class="field"><span>P1 座標 [公厘]</span><input type="text" class="form-control" id="p1" value="0" /></div>
-        <div class="field"><span>P2 座標 [公厘]</span><input type="text" class="form-control" id="p2" value="0" /></div>
-        <div class="field"><span>P3 座標 [公厘]</span><input type="text" class="form-control" id="p3" value="0" /></div>
-        <div class="field"><span>P4 座標 [公厘]</span><input type="text" class="form-control" id="p4" value="0" /></div>
-        <div class="field"><span>P5 座標 [公厘]</span><input type="text" class="form-control" id="p5" value="0" /></div>
-        <div class="field"><span>P6 座標 [公厘]</span><input type="text" class="form-control" id="p6" value="0" /></div>
-        <div class="field"><span>P7 座標 [公厘]</span><input type="text" class="form-control" id="p7" value="0" /></div>
-        <div class="field"><span>P8 座標 [公厘]</span><input type="text" class="form-control" id="p8" value="0" /></div>
-        <div class="field"><span>P9 座標 [公厘]</span><input type="text" class="form-control" id="p9" value="0" /></div>
+        
+        <!-- 右半邊 - 共用區塊 -->
+        <div style="flex: 1; margin-left: 10px;">
+          <!-- 補償表區塊 -->
+          <div class="groupbox">
+            <div class="field"><span>補償表：</span>
+              <select class="form-select" id="compensationTable">
+                  <option>未使用</option>
+                  <option>載入補償表(txt)</option>
+                  <option>載入補償表(rxl)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 編碼器補償表區塊 -->
+          <div class="groupbox">
+            <div class="field"><span>編碼器補償表：</span>
+              <select class="form-select" id="encoderCompensationTable">
+                <option>未使用</option>
+                <option>載入補償表(txt)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 速度範圍區塊 (維持在下方) -->
+    <div class="groupbox">
+      <div class="field"><span>速度範圍：</span>
+        <input type="text" class="form-control short" id="minSpeed" value="1.0" /> ~ 
+        <input type="text" class="form-control short" id="maxSpeed" value="200.0" /> %
+      </div>
+      <div class="field"><span>工作結束點：</span>
+        <select class="form-select" id="workEndPoint">
+          <option>無</option>
+          <option>P0</option>
+          <option>P1</option>
+          <option>P2</option>
+          <option>P3</option>
+          <option>P4</option>
+          <option>P5</option>
+          <option>P6</option>
+          <option>P7</option>
+          <option>P8</option>
+          <option>P9</option>
+        </select>
+      </div>
+      <div class="field"><span>原點回歸結束點：</span>
+        <select class="form-select" id="homeEndPoint">
+          <option>無</option>
+          <option>P0</option>
+          <option>P1</option>
+          <option>P2</option>
+          <option>P3</option>
+          <option>P4</option>
+          <option>P5</option>
+          <option>P6</option>
+          <option>P7</option>
+          <option>P8</option>
+          <option>P9</option>
+        </select>
       </div>
     </div>
 
@@ -186,6 +251,16 @@
         R: {}
       };
 
+      // 儲存共用參數的對象
+      const commonParams = {
+        compensationTable: '未使用',
+        encoderCompensationTable: '未使用',
+        minSpeed: '1.0',
+        maxSpeed: '200.0',
+        workEndPoint: '無',
+        homeEndPoint: '無'
+      };
+
       // 獲取所有輸入元素的ID
       function getAllInputIds() {
         const inputs = document.querySelectorAll('.axis-panel input, .axis-panel select');
@@ -194,6 +269,11 @@
           if (input.id) ids.push(input.id);
         });
         return ids;
+      }
+
+      // 獲取所有共用參數的ID
+      function getAllCommonInputIds() {
+        return ['compensationTable', 'encoderCompensationTable', 'minSpeed', 'maxSpeed', 'workEndPoint', 'homeEndPoint'];
       }
 
       // 保存當前參數設定
@@ -213,6 +293,25 @@
         return currentParams;
       }
 
+      // 保存當前共用參數設定
+      function saveCurrentCommonParams() {
+        const inputIds = getAllCommonInputIds();
+        const currentParams = {};
+        
+        inputIds.forEach(id => {
+          const element = document.getElementById(id);
+          if (element) {
+            if (element.type === 'checkbox') {
+              currentParams[id] = element.checked;
+            } else {
+              currentParams[id] = element.value;
+            }
+          }
+        });
+        
+        return currentParams;
+      }
+
       // 載入參數到表單
       function loadParams(params) {
         for (const id in params) {
@@ -225,6 +324,20 @@
                 document.getElementById('posLimit').disabled = !params[id];
                 document.getElementById('negLimit').disabled = !params[id];
               }
+            } else {
+              element.value = params[id];
+            }
+          }
+        }
+      }
+
+      // 載入共用參數到表單
+      function loadCommonParams(params) {
+        for (const id in params) {
+          const element = document.getElementById(id);
+          if (element) {
+            if (element.type === 'checkbox') {
+              element.checked = params[id];
             } else {
               element.value = params[id];
             }
@@ -265,70 +378,15 @@
           axisParams[axis] = {...currentParams};
         });
         
+        // 保存共用參數
+        Object.assign(commonParams, saveCurrentCommonParams());
+        
         alert(`已套用參數到 ${checkedAxes.join(', ')} 軸`);
       });
     </script>
-    
-
-    <!-- 這裡是共用區塊 -->
-    <div class="groupbox">
-      <div class="field"><span>補償表：</span>
-        <select class="form-select">
-            <option>未使用</option>
-            <option>載入補償表(txt)</option>
-            <option>載入補償表(rxl)</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="groupbox">
-      <div class="field"><span>編碼器補償表：</span>
-        <select class="form-select">
-          <option>未使用</option>
-          <option>載入補償表(txt)</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="groupbox">
-      <div class="field"><span>速度範圍：</span>
-        <input type="text" class="form-control short" value="1.0" /> ~ 
-        <input type="text" class="form-control short" value="200.0" /> %
-      </div>
-      <div class="field"><span>工作結束點：</span>
-        <select class="form-select">
-          <option>無</option>
-          <option>P0</option>
-          <option>P1</option>
-          <option>P2</option>
-          <option>P3</option>
-          <option>P4</option>
-          <option>P5</option>
-          <option>P6</option>
-          <option>P7</option>
-          <option>P8</option>
-          <option>P9</option>
-        </select>
-      </div>
-      <div class="field"><span>原點回歸結束點：</span>
-        <select class="form-select">
-          <option>無</option>
-          <option>P0</option>
-          <option>P1</option>
-          <option>P2</option>
-          <option>P3</option>
-          <option>P4</option>
-          <option>P5</option>
-          <option>P6</option>
-          <option>P7</option>
-          <option>P8</option>
-          <option>P9</option>
-        </select>
-      </div>
-    </div>
 
     <div class="text-center mt-4">
-      <button class="btn btn-primary">確定</button>
+      <button type="button" id="applyBtn" class="btn btn-secondary btn-sm ms-3">套用</button>
     </div>
   </div>
 
