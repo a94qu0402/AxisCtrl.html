@@ -250,16 +250,170 @@
       </div>
     </div>
 
-    <!-- 速度範圍區塊 (維持在下方) -->
+    <div class="text-center mt-4">
+      <button type="button" id="applyBtn" class="btn btn-secondary btn-sm ms-3">套用</button>
+    </div>
     
 
     <script>
       // 儲存各軸參數的對象
       const axisParams = {
-        X: {},
-        Y: {},
-        Z: {},
-        R: {}
+        X: {
+          axisUnit: '公厘',
+          programOrigin: '0',
+          encoderProgramOrigin: '0',
+          axisPulseUnit: '5000',
+          encoderPulseUnit: '5000',
+          speed: '100',
+          backlash: '0',
+          motorReverse: false,
+          jogReverse: false,
+          encoderReverse: false,
+          limitLevel: '0',
+          homeLevel: '0',
+          indexLevel: '0',
+          positionLevel: '0',
+          accelTime: '0.1',
+          accelMode: '梯形',
+          initialSpeed: '0',
+          posTimeout: '0',
+          posDelay: '0',
+          indexDelay: '0',
+          externalHome: '無',
+          externalPosJog: '無',
+          externalNegJog: '無',
+          homeSpeed: '50',
+          leaveHomeSpeed: '25',
+          homeReverse: false,
+          homeLimitMode: '0',
+          indexDirection: '不使用',
+          limitStopMode: '0',
+          homeOffset: '0',
+          useSoftLimit: false,
+          posLimit: '0',
+          negLimit: '0',
+          travel: '100',
+          p0: '0', p1: '0', p2: '0', p3: '0', p4: '0',
+          p5: '0', p6: '0', p7: '0', p8: '0', p9: '0',
+          _isSelected: false
+        },
+        Y: {
+          axisUnit: '公厘',
+          programOrigin: '0',
+          encoderProgramOrigin: '0',
+          axisPulseUnit: '5000',
+          encoderPulseUnit: '5000',
+          speed: '100',
+          backlash: '0',
+          motorReverse: false,
+          jogReverse: false,
+          encoderReverse: false,
+          limitLevel: '0',
+          homeLevel: '0',
+          indexLevel: '0',
+          positionLevel: '0',
+          accelTime: '0.1',
+          accelMode: '梯形',
+          initialSpeed: '0',
+          posTimeout: '0',
+          posDelay: '0',
+          indexDelay: '0',
+          externalHome: '無',
+          externalPosJog: '無',
+          externalNegJog: '無',
+          homeSpeed: '50',
+          leaveHomeSpeed: '25',
+          homeReverse: false,
+          homeLimitMode: '0',
+          indexDirection: '不使用',
+          limitStopMode: '0',
+          homeOffset: '0',
+          useSoftLimit: false,
+          posLimit: '0',
+          negLimit: '0',
+          travel: '100',
+          p0: '0', p1: '0', p2: '0', p3: '0', p4: '0',
+          p5: '0', p6: '0', p7: '0', p8: '0', p9: '0',
+          _isSelected: false
+        },
+        Z: {
+          axisUnit: '公厘',
+          programOrigin: '0',
+          encoderProgramOrigin: '0',
+          axisPulseUnit: '5000',
+          encoderPulseUnit: '5000',
+          speed: '100',
+          backlash: '0',
+          motorReverse: false,
+          jogReverse: false,
+          encoderReverse: false,
+          limitLevel: '0',
+          homeLevel: '0',
+          indexLevel: '0',
+          positionLevel: '0',
+          accelTime: '0.1',
+          accelMode: '梯形',
+          initialSpeed: '0',
+          posTimeout: '0',
+          posDelay: '0',
+          indexDelay: '0',
+          externalHome: '無',
+          externalPosJog: '無',
+          externalNegJog: '無',
+          homeSpeed: '50',
+          leaveHomeSpeed: '25',
+          homeReverse: false,
+          homeLimitMode: '0',
+          indexDirection: '不使用',
+          limitStopMode: '0',
+          homeOffset: '0',
+          useSoftLimit: false,
+          posLimit: '0',
+          negLimit: '0',
+          travel: '100',
+          p0: '0', p1: '0', p2: '0', p3: '0', p4: '0',
+          p5: '0', p6: '0', p7: '0', p8: '0', p9: '0',
+          _isSelected: false
+        },
+        R: {
+          axisUnit: '度',
+          programOrigin: '0',
+          encoderProgramOrigin: '0',
+          axisPulseUnit: '5000',
+          encoderPulseUnit: '5000',
+          speed: '100',
+          backlash: '0',
+          motorReverse: false,
+          jogReverse: false,
+          encoderReverse: false,
+          limitLevel: '0',
+          homeLevel: '0',
+          indexLevel: '0',
+          positionLevel: '0',
+          accelTime: '0.1',
+          accelMode: '梯形',
+          initialSpeed: '0',
+          posTimeout: '0',
+          posDelay: '0',
+          indexDelay: '0',
+          externalHome: '無',
+          externalPosJog: '無',
+          externalNegJog: '無',
+          homeSpeed: '50',
+          leaveHomeSpeed: '25',
+          homeReverse: false,
+          homeLimitMode: '0',
+          indexDirection: '不使用',
+          limitStopMode: '0',
+          homeOffset: '0',
+          useSoftLimit: false,
+          posLimit: '0',
+          negLimit: '0',
+          travel: '360',
+          p0: '0', p1: '0', p2: '0', p3: '0', p4: '0',
+          p5: '0', p6: '0', p7: '0', p8: '0', p9: '0',
+          _isSelected: false
+        }
       };
 
       // 儲存共用參數的對象
@@ -272,8 +426,8 @@
         homeEndPoint: '無'
       };
 
-      // 獲取所有輸入元素的ID
-      function getAllInputIds() {
+      // 獲取所有軸參數輸入元素的ID
+      function getAllAxisInputIds() {
         const inputs = document.querySelectorAll('.axis-panel input, .axis-panel select');
         const ids = [];
         inputs.forEach(input => {
@@ -287,17 +441,19 @@
         return ['compensationTable', 'encoderCompensationTable', 'minSpeed', 'maxSpeed', 'workEndPoint', 'homeEndPoint'];
       }
 
-      // 保存當前參數設定
-      function saveCurrentParams() {
-        const inputIds = getAllInputIds();
+      // 保存當前軸參數設定
+      function saveCurrentAxisParams() {
+        const inputIds = getAllAxisInputIds();
         const currentParams = {};
         
         inputIds.forEach(id => {
           const element = document.getElementById(id);
-          if (element.type === 'checkbox') {
-            currentParams[id] = element.checked;
-          } else {
-            currentParams[id] = element.value;
+          if (element) {
+            if (element.type === 'checkbox') {
+              currentParams[id] = element.checked;
+            } else {
+              currentParams[id] = element.value;
+            }
           }
         });
         
@@ -323,9 +479,14 @@
         return currentParams;
       }
 
-      // 載入參數到表單
-      function loadParams(params) {
+      // 載入軸參數到表單
+      function loadAxisParams(params) {
+        if (!params) return;
+        
         for (const id in params) {
+          // 跳過內部標記屬性
+          if (id === '_isSelected') continue;
+          
           const element = document.getElementById(id);
           if (element) {
             if (element.type === 'checkbox') {
@@ -344,6 +505,8 @@
 
       // 載入共用參數到表單
       function loadCommonParams(params) {
+        if (!params) return;
+        
         for (const id in params) {
           const element = document.getElementById(id);
           if (element) {
@@ -356,18 +519,72 @@
         }
       }
 
+      // 初始化時為每個軸添加選中狀態標記
+      for (const axis in axisParams) {
+        axisParams[axis]._isSelected = false;
+      }
+
+      // 初始化頁面時載入共用參數
+      loadCommonParams(commonParams);
+
       // 監聽軸選擇變更
       document.querySelectorAll('input[name="axis"]').forEach(checkbox => {
         checkbox.addEventListener('change', function() {
-          // 如果只有一個軸被選中，載入該軸的參數
+          // 獲取當前選中的軸
           const checkedAxes = Array.from(document.querySelectorAll('input[name="axis"]:checked'))
             .map(cb => cb.value);
           
-          if (checkedAxes.length === 1) {
-            const axis = checkedAxes[0];
-            if (axisParams[axis] && Object.keys(axisParams[axis]).length > 0) {
-              loadParams(axisParams[axis]);
+          // 更新所有軸的選中狀態
+          for (const axis in axisParams) {
+            const checkbox = document.querySelector(`input[name="axis"][value="${axis}"]`);
+            if (checkbox) {
+              axisParams[axis]._isSelected = checkbox.checked;
             }
+          }
+          
+          // 如果有選中的軸，只在選擇最後一個軸時載入該軸的參數
+          if (checkedAxes.length > 0) {
+            // 獲取最後選中的軸（當前變更的軸）
+            const lastSelectedAxis = this.value;
+            
+            // 只有當該軸被選中時才載入其參數
+            if (this.checked) {
+              loadAxisParams(axisParams[lastSelectedAxis]);
+            } else {
+              // 如果取消選中，則顯示剩餘選中的最後一個軸的參數
+              if (checkedAxes.length > 0) {
+                const lastAxis = checkedAxes[checkedAxes.length - 1];
+                loadAxisParams(axisParams[lastAxis]);
+              } else {
+                // 如果沒有選中的軸，清空表單
+                const emptyParams = {};
+                getAllAxisInputIds().forEach(id => {
+                  const element = document.getElementById(id);
+                  if (element) {
+                    if (element.type === 'checkbox') {
+                      emptyParams[id] = false;
+                    } else {
+                      emptyParams[id] = '';
+                    }
+                  }
+                });
+                loadAxisParams(emptyParams);
+              }
+            }
+          } else {
+            // 如果沒有選中的軸，清空表單
+            const emptyParams = {};
+            getAllAxisInputIds().forEach(id => {
+              const element = document.getElementById(id);
+              if (element) {
+                if (element.type === 'checkbox') {
+                  emptyParams[id] = false;
+                } else {
+                  emptyParams[id] = '';
+                }
+              }
+            });
+            loadAxisParams(emptyParams);
           }
         });
       });
@@ -382,11 +599,13 @@
           return;
         }
         
-        const currentParams = saveCurrentParams();
+        const currentAxisParams = saveCurrentAxisParams();
         
-        // 將當前參數保存到選中的每個軸
+        // 將當前軸參數保存到選中的每個軸
         checkedAxes.forEach(axis => {
-          axisParams[axis] = {...currentParams};
+          // 保留_isSelected屬性的值
+          const isSelected = axisParams[axis]._isSelected;
+          axisParams[axis] = {...currentAxisParams, _isSelected: isSelected};
         });
         
         // 保存共用參數
@@ -396,9 +615,7 @@
       });
     </script>
 
-    <div class="text-center mt-4">
-      <button type="button" id="applyBtn" class="btn btn-secondary btn-sm ms-3">套用</button>
-    </div>
+   
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
