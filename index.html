@@ -156,13 +156,13 @@
     <!-- 軸選擇 -->
     <div class="axis-selector">
       <div class="axis-selector-left">
-        <label><input type="checkbox" class="form-check-input" name="axis" value="X" checked> X 軸</label>
-        <label><input type="checkbox" class="form-check-input" name="axis" value="Y"> Y 軸</label>
-        <label><input type="checkbox" class="form-check-input" name="axis" value="Z"> Z 軸</label>
-        <label><input type="checkbox" class="form-check-input" name="axis" value="R"> R 軸</label>
+        <label><input type="checkbox" class="form-check-input" name="axis" value="X" checked onclick="return validateAxisSelection(this)"> X 軸</label>
+        <label><input type="checkbox" class="form-check-input" name="axis" value="Y" onclick="return validateAxisSelection(this)"> Y 軸</label>
+        <label><input type="checkbox" class="form-check-input" name="axis" value="Z" onclick="return validateAxisSelection(this)"> Z 軸</label>
+        <label><input type="checkbox" class="form-check-input" name="axis" value="R" onclick="return validateAxisSelection(this)"> R 軸</label>
       </div>
       <div class="axis-selector-right">
-        <div class="right-set"><span>>所有軸通用設定</span>
+        <div class="right-set"><span>所有軸通用設定</span>
         </select></div>
       </div>
     </div>
@@ -171,12 +171,12 @@
     <div class="d-flex" style="align-items: stretch;">
       <!-- 左側 -->
       <div class="axis-panel me-3">
-        <div class="field"><span>軸單位</span><select class="form-select" id="axisUnit"><option>公厘</option><option>度</option></select></div>
+        q<div class="field"><span>軸單位</span><select class="form-select" id="axisUnit"><option>公厘</option><option>度</option></select></div>
         <div class="field"><span>程式原點 [公厘]</span><input type="text" class="form-control" id="programOrigin" value="0" /></div>
         <div class="field"><span>編碼器程式原點 [公厘]</span><input type="text" class="form-control" id="encoderProgramOrigin" value="0" /></div>
         <div class="field"><span>軸單位 [脈衝/公厘]</span><input type="text" class="form-control" id="axisPulseUnit" value="5000" /></div>
         <div class="field"><span>編碼器單位 [脈衝/公厘]</span><input type="text" class="form-control" id="encoderPulseUnit" value="5000" /></div>
-        <div class="field"><span>速度 [公厘/秒]</span><input type="text" class="form-control" id="speed" value="100" /></div>
+        <div class="field"><span>速度 [公厘/秒]</span><input type="text" class="form-control" id=e"speed" value="100" /></div>
         <div class="field"><span>背隙 [公厘]</span><input type="text" class="form-control" id="backlash" value="0" /></div>
         <div class="field"><span>馬達反向</span><input type="checkbox" class="form-check-input" id="motorReverse" /></div>
         <div class="field"><span>吋動反向</span><input type="checkbox" class="form-check-input" id="jogReverse" /></div>
@@ -467,6 +467,15 @@
         homeEndPoint: '無'
       };
 
+      // 驗證軸選擇，確保至少有一個軸被選中
+      function validateAxisSelection(checkbox) {
+        const checkedAxes = document.querySelectorAll('input[name="axis"]:checked');
+        if (!checkbox.checked && checkedAxes.length === 1) {
+          return false; // 阻止取消選中
+        }
+        return true;
+      }
+
       // 獲取所有軸參數輸入元素的ID
       function getAllAxisInputIds() {
         const inputs = document.querySelectorAll('.axis-panel input, .axis-panel select');
@@ -564,68 +573,42 @@
       for (const axis in axisParams) {
         axisParams[axis]._isSelected = false;
       }
+      axisParams.X._isSelected = true; // 初始化時X軸被選中
 
       // 初始化頁面時載入共用參數
       loadCommonParams(commonParams);
+      loadAxisParams(axisParams.X); // 初始化時載入X軸參數
 
       // 監聽軸選擇變更
       document.querySelectorAll('input[name="axis"]').forEach(checkbox => {
         checkbox.addEventListener('change', function() {
-          // 獲取當前選中的軸
-          const checkedAxes = Array.from(document.querySelectorAll('input[name="axis"]:checked'))
-            .map(cb => cb.value);
-          
-          // 更新所有軸的選中狀態
-          for (const axis in axisParams) {
-            const checkbox = document.querySelector(`input[name="axis"][value="${axis}"]`);
-            if (checkbox) {
-              axisParams[axis]._isSelected = checkbox.checked;
-            }
-          }
-          
-          // 如果有選中的軸，只在選擇最後一個軸時載入該軸的參數
-          if (checkedAxes.length > 0) {
-            // 獲取最後選中的軸（當前變更的軸）
-            const lastSelectedAxis = this.value;
+          if (this.checked || document.querySelectorAll('input[name="axis"]:checked').length > 0) {
+            // 獲取當前選中的軸
+            const checkedAxes = Array.from(document.querySelectorAll('input[name="axis"]:checked'))
+              .map(cb => cb.value);
             
-            // 只有當該軸被選中時才載入其參數
-            if (this.checked) {
-              loadAxisParams(axisParams[lastSelectedAxis]);
-            } else {
-              // 如果取消選中，則顯示剩餘選中的最後一個軸的參數
-              if (checkedAxes.length > 0) {
+            // 更新所有軸的選中狀態
+            for (const axis in axisParams) {
+              const checkbox = document.querySelector(`input[name="axis"][value="${axis}"]`);
+              if (checkbox) {
+                axisParams[axis]._isSelected = checkbox.checked;
+              }
+            }
+            
+            // 如果有選中的軸，只在選擇最後一個軸時載入該軸的參數
+            if (checkedAxes.length > 0) {
+              // 獲取最後選中的軸（當前變更的軸）
+              const lastSelectedAxis = this.value;
+              
+              // 只有當該軸被選中時才載入其參數
+              if (this.checked) {
+                loadAxisParams(axisParams[lastSelectedAxis]);
+              } else {
+                // 如果取消選中，則顯示剩餘選中的最後一個軸的參數
                 const lastAxis = checkedAxes[checkedAxes.length - 1];
                 loadAxisParams(axisParams[lastAxis]);
-              } else {
-                // 如果沒有選中的軸，清空表單
-                const emptyParams = {};
-                getAllAxisInputIds().forEach(id => {
-                  const element = document.getElementById(id);
-                  if (element) {
-                    if (element.type === 'checkbox') {
-                      emptyParams[id] = false;
-                    } else {
-                      emptyParams[id] = '';
-                    }
-                  }
-                });
-                loadAxisParams(emptyParams);
               }
             }
-          } else {
-            // 如果沒有選中的軸，清空表單
-            const emptyParams = {};
-            getAllAxisInputIds().forEach(id => {
-              const element = document.getElementById(id);
-              if (element) {
-                if (element.type === 'checkbox') {
-                  emptyParams[id] = false;
-                } else {
-                  emptyParams[id] = '';
-                }
-              }
-            });
-            loadAxisParams(emptyParams);
           }
         });
       });
